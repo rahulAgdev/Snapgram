@@ -1,0 +1,3 @@
+React query : It is a js framework which is used to manage and authenticate data that is being fetched from somewhere else into our react applicaton. For example, when we were using sanity to send and fetch data into our local environment, we were not doing any caching or authentication. The cms provided everything regarding data deployment and fetching. We didnt do it manually. Well, react query will be used for this process that the cms did for us, in a manual manner.
+
+We will use appwrite to do : auth, db management, collection management, storage for file storage and transfer, and cloud based serverless function.
