@@ -12,7 +12,7 @@ const App = () => {
         {/* public routes : everybody will be able to see : signup and signin */}
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
-          <Route path="/sign-in" element={<SignupForm />} />
+          <Route path="/sign-up" element={<SignupForm />} />
         </Route>
         {/* public routes : only able to see if the user is signed in */}
         <Route element={<RootLayout />}>

@@ -3,3 +3,8 @@ React query : It is a js framework which is used to manage and authenticate data
 We will use appwrite to do : auth, db management, collection management, storage for file storage and transfer, and cloud based serverless function.
 
 React Router is a library for declarative routing in React applications. The react-router-dom package specifically provides a set of tools and components that enable navigation and routing functionality in a React application.
+
+Shadcn is styling library using tailwind
+
+The navigate function helps us navigate from to a particular page, whereas the outlet function helps us define where child components should be rendered. These both are imported from react-router-dom.
+
