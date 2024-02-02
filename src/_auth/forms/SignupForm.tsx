@@ -11,15 +11,27 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
+
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/ui/shared/Loader";
-import { Link } from "react-router-dom";
-import { createUserAccount } from "@/lib/appwrite/api";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useCreateUserAccount,
+  useSignInAccount,
+} from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
 
 const SignupForm = () => {
-  const isLoading = false;
+  const navigate = useNavigate();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { toast } = useToast();
+  const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
+    useCreateUserAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningIn } =
+    useSignInAccount();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -36,6 +48,30 @@ const SignupForm = () => {
     // create the user
     // console.log("before creating the user");
     const newUser = await createUserAccount(values);
+    if (!newUser) {
+      console.log("sign up failed in on submit below creauseraccount because new user not found")
+      return toast({
+        title: "Sign up failed. Please try again",
+      });
+    }
+
+    const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+    });
+    if (!session) {
+      console.log("Sign in failed because session not found")
+      return toast({ title: "Sign in failed. Please try again." });
+    }
+
+    const isLoggedIn = await checkAuthUser();
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      console.log("Sign up failed because isLoggedin is not valid coming from check auth user. ")
+      toast({ title: "Sign up failed. Please try again" });
+    }
     // console.log("Inside signupform submit validation ", newUser);
   }
   return (
@@ -110,7 +146,7 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...

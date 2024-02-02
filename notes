@@ -8,3 +8,5 @@ Shadcn is styling library using tailwind
 
 The navigate function helps us navigate from to a particular page, whereas the outlet function helps us define where child components should be rendered. These both are imported from react-router-dom.
 
+In web development, a session refers to a period of time during which a user interacts with a web application. Sessions are a way to store information about a user's activities across multiple requests, allowing the server to recognize and associate data with a specific user. Sessions are crucial for maintaining stateful interactions in stateless HTTP, where each request is independent and doesn't inherently carry information about previous requests.
+
