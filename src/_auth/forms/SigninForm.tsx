@@ -47,18 +47,28 @@ const SigninForm = () => {
     });
     if (!session) {
       // console.log("Sign in failed because session not found");
-      return toast({ title: "Sign in failed. Please try again." });
+      // toast({ variant: "destructive", title: "Sign in failed. Please try again" });
+      console.log("No session")
+      toast({
+        variant: "destructive",
+        title: "Sign in failed. Please try again"
+      })
     }
 
     const isLoggedIn = await checkAuthUser();
     if (isLoggedIn) {
+      // console.log("Inside inLoggedIn check, the value of isLoggedIn is : ", isLoggedIn)
       form.reset();
       navigate("/");
     } else {
-      // console.log(
-      //   "Sign up failed because isLoggedin is not valid coming from check auth user. "
-      // );
-      toast({ title: "Sign in failed. Please try again" });
+      console.log(
+        "Sign up failed because isLoggedin is not valid coming from check auth user. "
+      );
+      // toast({ variant: "destructive", title: "Sign in failed. Please try again" });
+      toast({
+        variant: "destructive",
+        title: "Sign in failed. Please try again"
+      })
     }
     // console.log("Inside signupform submit validation ", newUser);
   }
