@@ -1,6 +1,8 @@
 import { INewPost, INewUser } from "@/types";
 import { ID, Query } from "appwrite";
 import { account, appwriteConfig, storage, avatars, databases } from "./config";
+import { QUERY_KEYS } from "../react-query/queryKeys";
+import { useQuery } from "@tanstack/react-query";
 export async function createUserAccount(user: INewUser) {
   try {
     const newAccount = await account.create(
@@ -189,4 +191,15 @@ export async function deleteFile(fileId: string) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function getRecentPosts(){
+  const posts = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.postCollectionId,
+    [Query.orderDesc('$createdAt'), Query.limit(20)],
+
+  )
+  if(!posts) throw Error;
+  return posts;
 }
