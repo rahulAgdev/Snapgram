@@ -107,18 +107,21 @@ export async function createPost(post: INewPost) {
   try {
     // Upload file to appwrite storage
     const uploadedFile = await uploadFile(post.file[0]);
-
+    // console.log("uploadedfile: ", uploadedFile);
     if (!uploadedFile) throw Error;
 
     // Get file url
     const fileUrl = getFilePreview(uploadedFile.$id);
+    // console.log("File url : " , fileUrl)
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
       throw Error;
     }
 
     // Convert tags into array
+    // console.log("Execution reached before tags replace function");
     const tags = post.tags?.replace(/ /g, "").split(",") || [];
+    // console.log("Execution reached after tags replace function. Tags : " , tags);
 
     // Create post
     const newPost = await databases.createDocument(
@@ -134,12 +137,12 @@ export async function createPost(post: INewPost) {
         tags: tags,
       }
     );
-
+      // console.log("newPost : " , newPost)
     if (!newPost) {
       await deleteFile(uploadedFile.$id);
       throw Error;
     }
-
+    
     return newPost;
   } catch (error) {
     console.log(error);
