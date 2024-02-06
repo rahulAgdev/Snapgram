@@ -10,3 +10,21 @@ The navigate function helps us navigate from to a particular page, whereas the o
 
 In web development, a session refers to a period of time during which a user interacts with a web application. Sessions are a way to store information about a user's activities across multiple requests, allowing the server to recognize and associate data with a specific user. Sessions are crucial for maintaining stateful interactions in stateless HTTP, where each request is independent and doesn't inherently carry information about previous requests.
 
+
+Asynchronous functions, also known as asynchronous operations or async functions, are a programming concept used to handle operations that may take some time to complete, such as fetching data from a server, reading a file, or any other I/O (Input/Output) operation. In JavaScript, asynchronous programming is typically achieved using Promises or the async/await syntax.
+
+In the context of React, asynchronous functions are commonly used for tasks that might cause delays in the application, such as fetching data from an API or handling user input. React applications often deal with dynamic data and external resources, and using asynchronous operations allows the application to continue working without getting blocked while waiting for these operations to complete.
+
+Here's a brief explanation of the terms:
+
+Promises: Promises are objects that represent the eventual completion or failure of an asynchronous operation and its resulting value. They provide a way to handle asynchronous code in a more structured and readable manner.
+
+async/await: The async/await syntax is a more recent addition to JavaScript that simplifies working with Promises. An async function returns a Promise, and the await keyword is used inside such functions to wait for the resolution of a Promise. This syntax makes asynchronous code look more like synchronous code, which is easier to read and understand.
+
+In React, asynchronous functions are commonly used for the following reasons:
+
+Data Fetching: When fetching data from an API, database, or any external source, it often takes time. Asynchronous functions allow you to fetch data without blocking the main thread, ensuring a smooth user experience.
+
+State Updates: Asynchronous functions are used when you need to perform side effects or update the state after a certain operation, such as user interactions or data fetching.
+
+Lifecycle Events: React lifecycle methods and hooks can involve asynchronous operations. For example, the useEffect hook is often used to perform side effects, and it can include asynchronous code.
